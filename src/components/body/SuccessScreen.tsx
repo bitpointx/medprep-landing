@@ -1,44 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
-import axios from "axios";
-import { Button, Typography } from "@mui/material";
+import React from "react";
+import {
+  Wrapper,
+  Main,
+  Para1,
+  Content,
+  Para2,
+  Button,
+} from "../style/SuccessfulStyle";
+import SuccessImg from "../images/successful-img.png";
+import { Link } from "react-router-dom";
 
 const SuccessScreen = () => {
-  let [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const user = localStorage.getItem("user");
-  const createToken = async () => {
-    //amount
-    const amt = searchParams.get("amt");
-    //payment refid
-    const rid = searchParams.get("refId");
-    //productid
-    const pid = searchParams.get("oid");
-    const exam = pid!.split("_")[1];
-    try {
-      // notify("Email sent succeessfully");
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/web/createtoken?scd=${process.env.REACT_APP_MERCHANT_ID}&amt=${amt}&rid=${rid}&pid=${pid}`,
-        {
-          user: user,
-          exam: exam,
-        }
-      );
-      //   notify("Email sent succeessfully");
-    } catch (error) {
-      // alert("Hello");
-      // localStorage.removeItem("user");
-      //   notify("Failed To send email");
-      // navigate("/exams");
-    }
-  };
-  useEffect(() => {
-    createToken();
-  }, []);
   return (
     <>
-      <Typography>Exam Link Have been sent to your email</Typography>
-      <Button onClick={createToken}>Resend</Button>
+      <Wrapper>
+        <Main>
+          <img src={SuccessImg} alt="SuccessImg" />
+        </Main>
+        <Content>
+          <Para1>Your Payment is Successfull.</Para1>
+          <Para2>
+            Thankyou for your payment.Exam link has been sent to your email.
+          </Para2>
+          <Link to="/exam">
+            <Button>Go Back</Button>
+          </Link>
+        </Content>
+      </Wrapper>
     </>
   );
 };

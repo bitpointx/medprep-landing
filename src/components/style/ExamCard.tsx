@@ -138,4 +138,8 @@ export const Button = styled.button`
   text-align: center;
   text-transform: capitalize;
   color: #1472ba;
+  &:hover {
+    background-color: #1472ba;
+    color: #ffffff;
+  }
 `;

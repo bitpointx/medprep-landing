@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Paper } from "@mui/material";
-import GlobalStyle from "../../../components/style/GlobalStyles";
+// import GlobalStyle from "../../../components/style/GlobalStyles";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./ExamPage.css";
 import axios from "axios";
@@ -20,11 +20,12 @@ import moment from "moment";
 import Countdown from "react-countdown";
 import { useDispatch, useSelector } from "react-redux";
 import { setExamPage } from "../../../Redux/examsPageSlice";
-import ExamNotStarted from "./ExamNotStarted";
-import ExamTimeOver from "./ExamTimeOver";
+// import ExamNotStarted from "./ExamNotStarted";
+// import ExamTimeOver from "./ExamTimeOver";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { adminService } from "../../../http/admin-service";
+// import { adminService } from "../../../http/admin-service";
 import SuccessNotify from "../../../components/body/SuccessNotify";
+import Time from "../Time/Time";
 
 interface responseProps {
   data: any;
@@ -79,7 +80,7 @@ const ExamPage = () => {
 
   const [open, setopen] = useState(false);
   const [submitModel, setsubmitModel] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const ref = useRef(null);
   const handleClick = (e: any) => {
@@ -90,8 +91,8 @@ const ExamPage = () => {
     setopen(false);
   };
 
-  const examStart = responseTime.startDate;
-  const examEnd = responseTime.endDate;
+  // const examStart = responseTime.startDate;
+  // const examEnd = responseTime.endDate;
   const currentTime = new Date().getTime();
 
   const renderer = ({ hours, minutes, seconds }: any) => {
@@ -144,9 +145,9 @@ const ExamPage = () => {
   return (
     <>
       {currentTime < responseTime.startDate ? (
-        "Not Started"
+        <Time title="Exam Not Started" />
       ) : currentTime > responseTime.endDate ? (
-        "Ended"
+        <Time title="Exam Time End" />
       ) : (
         <>
           <div>
@@ -156,7 +157,7 @@ const ExamPage = () => {
               handleClose={handleCloseNotify}
             />
 
-            <GlobalStyle />
+            {/* <GlobalStyle /> */}
             <div className="TopBar">
               <p className="Left-TopBar-Para">
                 Time Left &nbsp;:&nbsp;

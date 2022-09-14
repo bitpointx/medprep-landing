@@ -1,5 +1,5 @@
 import React from "react";
-import GlobalStyle from "../../../components/style/GlobalStyles";
+// import GlobalStyle from "../../../components/style/GlobalStyles";
 import axios from "axios";
 import "./QnInputData.css";
 import {
@@ -80,7 +80,7 @@ const QNinputData: React.FC<QNinputDataProps> = ({
         defaultValue={selectedAnswer === "" ? null : selectedAnswer}
         onChange={updateAns}
       >
-        <GlobalStyle />
+        {/* <GlobalStyle /> */}
         {/* <form style={{ border: "1px solid red" }}> */}
         <div className="Question-Wrapper">
           <div className="Question-Main">

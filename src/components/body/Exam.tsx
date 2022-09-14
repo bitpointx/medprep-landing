@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import img4 from "../images/Exam-list.png";
-import GlobalStyle from "../style/GlobalStyles";
+// import GlobalStyle from "../style/GlobalStyles";
 import LearnContainer from "../../screen/Home/Learn/LearnContainer";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,7 +56,7 @@ function Exam() {
   // console.log("Exam is:-", examing);
   return (
     <>
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
       <Navbar />
       <Background
         style={{
