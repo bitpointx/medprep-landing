@@ -1,0 +1,396 @@
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  Grid,
+  IconButton,
+  Popover,
+  Typography,
+} from "@mui/material";
+import { Paper } from "@mui/material";
+import GlobalStyle from "../../../components/style/GlobalStyles";
+import MenuIcon from "@mui/icons-material/Menu";
+import "./ExamPage.css";
+import axios from "axios";
+import NormalQuestion from "../Question Sheet/NormalQuestion";
+import Profile from "../Profile/Profile";
+import moment from "moment";
+import Countdown from "react-countdown";
+import { useDispatch, useSelector } from "react-redux";
+import { setExamPage } from "../../../Redux/examsPageSlice";
+import ExamNotStarted from "./ExamNotStarted";
+import ExamTimeOver from "./ExamTimeOver";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { adminService } from "../../../http/admin-service";
+import SuccessNotify from "../../../components/body/SuccessNotify";
+
+interface responseProps {
+  data: any;
+  startDate: number;
+  endDate: number;
+}
+
+const onlineExamUrl = `${process.env.REACT_APP_API_URL}/web/exam`;
+const ExamPage = () => {
+  const dispatch = useDispatch();
+
+  const [notiOpen, setnotifyOpen] = useState(false);
+  const [responseTime, setResponseTime] = useState<responseProps>({
+    data: "",
+    startDate: 0,
+    endDate: 0,
+  });
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const token = searchParams.get("token");
+
+  const onlineExamData = async () => {
+    // const token =
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZjdkOWE4M2IzMzkyMDAxNjZjOGVjZSIsImVtYWlsIjoibmVwYWxpa2FsYWthcmEzQGdtYWlsLmNvbSIsImV4YW0iOiI2MjIxYzEyNTkyMGM1ZTAwMTY3MWEwNTkiLCJpYXQiOjE2NjA0NTA5OTYsImV4cCI6MTY2ODIyNjk5Nn0.qOwJsIsUUrryBYOVG2JH9O9jRxj8HceF80QnOhFDbbE";
+    try {
+      const resp = await axios.get(onlineExamUrl, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setResponseTime((prev) => {
+        return {
+          ...prev,
+          data: resp.data?.data,
+          startDate: resp.data.data.startDate,
+          endDate: resp.data.data.endDate,
+        };
+      });
+      localStorage.setItem("result", resp.data.data.data.id);
+      dispatch(
+        setExamPage({
+          question: resp.data.data.data.questionAns,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    onlineExamData();
+  }, []);
+
+  const questionlist = useSelector((state: any) => state.examPage.exampagelist);
+
+  const [open, setopen] = useState(false);
+  const [submitModel, setsubmitModel] = useState(false);
+  const navigate = useNavigate();
+
+  const ref = useRef(null);
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    setopen(true);
+  };
+  const handleClose = () => {
+    setopen(false);
+  };
+
+  const examStart = responseTime.startDate;
+  const examEnd = responseTime.endDate;
+  const currentTime = new Date().getTime();
+
+  const renderer = ({ hours, minutes, seconds }: any) => {
+    return (
+      <span>
+        {hours} : hrs {minutes} : mins {seconds} : sec
+      </span>
+    );
+  };
+  const handleCloseNotify = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setnotifyOpen(false);
+  };
+
+  const endExam = async () => {
+    const resultId = localStorage.getItem("result");
+    const token = searchParams.get("token");
+
+    if (resultId) {
+      await axios.patch(
+        `${process.env.REACT_APP_API_URL!}/web/result/${resultId}`,
+        {
+          isCompleted: true,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setnotifyOpen(true);
+      setsubmitModel(false);
+      // await adminService.submitExam(resultId);
+    } else {
+      alert("No Result Id");
+    }
+    // const response = await axios.patch(
+    //   `${process.env.REACT_APP_BACKEND_URL}/app/results/${resultId}`,
+    //   {
+    //     isCompleted: true,
+    //   }
+    // );
+  };
+
+  return (
+    <>
+      {currentTime < responseTime.startDate ? (
+        "Not Started"
+      ) : currentTime > responseTime.endDate ? (
+        "Ended"
+      ) : (
+        <>
+          <div>
+            <SuccessNotify
+              message="Successfully Updated"
+              open={notiOpen}
+              handleClose={handleCloseNotify}
+            />
+
+            <GlobalStyle />
+            <div className="TopBar">
+              <p className="Left-TopBar-Para">
+                Time Left &nbsp;:&nbsp;
+                {responseTime.data && (
+                  <Countdown
+                    date={Date.now() + (responseTime.endDate - currentTime)}
+                    // date={
+                    //   Date.now() + (responseTime.endDate - responseTime.startDate)
+                    // }
+                    renderer={renderer}
+                  />
+                )}
+              </p>
+
+              <p className="Right-TopBar-Para">Exam 1</p>
+              <div className="menu-icon">
+                <IconButton
+                  sx={{ padding: "0" }}
+                  onClick={handleClick}
+                  ref={ref!}
+                >
+                  <MenuIcon style={{ color: "white" }} />
+                </IconButton>
+              </div>
+              <Popover
+                open={open}
+                anchorEl={ref.current}
+                onClose={handleClose}
+                container={ref.current}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                <Profile />
+              </Popover>
+            </div>
+            <div className="Left-Container">
+              <div className="Left-Container-width">
+                <div className="Left-Container-Main">
+                  <div className="Left-Container-Header">
+                    <div className="Left-Container-Mark">
+                      <p>Mark</p>
+                      <p>:&nbsp; 100</p>
+                    </div>
+                    <div className="Left-Container-Question">
+                      <p>Questions</p>
+                      <p>:&nbsp; 30</p>
+                    </div>
+                  </div>
+                  <div className="Left-Container-Timer">
+                    <div className="Left-Container-StartTime">
+                      <p>Start Time </p>
+                      <p>
+                        :&nbsp; {moment(responseTime.startDate).format("LTS")}
+                      </p>
+                    </div>
+                    <div className="Left-Container-EndTime">
+                      <p>End Time</p>
+                      <p>
+                        :&nbsp; {moment(responseTime.endDate).format("LTS")}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {questionlist.map((abc: any, index: number) => {
+                  return (
+                    <>
+                      <div className="ExamPageCard">
+                        <NormalQuestion item={abc} index={index} />
+                      </div>
+                    </>
+                  );
+                })}
+              </div>
+              <div className="RefWrapper">
+                <div className="RefMain">
+                  <div>
+                    <p className="RefPara">Reference</p>
+                  </div>
+                  <Grid container>
+                    {questionlist.map((select: any, index: number) => {
+                      return (
+                        <>
+                          <Grid item xl={2} sx={{ padding: "8px 0" }}>
+                            <Paper
+                              sx={{
+                                width: "42px",
+                                height: "42px",
+                                color: `${
+                                  select.selectedAnswer ? "#F1F7F6" : "#F1F7F6"
+                                }`,
+                                borderRadius: "50%",
+                                margin: "0 auto",
+                                background: `${
+                                  select.selectedAnswer ? "#01B39A" : "#FC3D39"
+                                }`,
+                              }}
+                            >
+                              <p className="Number">{index + 1}</p>
+                            </Paper>
+                          </Grid>
+                        </>
+                      );
+                    })}
+                  </Grid>
+                  <Grid
+                    container
+                    spacing={0}
+                    sx={{
+                      height: "25px",
+                      // border: "1px solid red",
+                      margin: "36px 0",
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={12}
+                      lg={6}
+                      xl={4}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "7px",
+                        height: "25px",
+                        // border: "1px solid black",
+                      }}
+                    >
+                      <Paper
+                        elevation={0}
+                        sx={{
+                          width: "12px",
+                          height: "12px",
+                          background: "#01B39A",
+                          borderRadius: "2px",
+                        }}
+                      ></Paper>
+
+                      <p className="Answered">Answered</p>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      lg={6}
+                      xl={4}
+                      sx={{
+                        display: "flex",
+                        gap: "7px",
+                        height: "25px",
+                        // border: "1px solid black",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Paper
+                        elevation={0}
+                        sx={{
+                          width: "12px",
+                          height: "12px",
+                          background: "#FC3D39",
+                          borderRadius: "2px",
+                        }}
+                      ></Paper>
+                      <p className="Answered">Not Answered</p>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      lg={6}
+                      xl={4}
+                      sx={{
+                        display: "flex",
+                        gap: "7px",
+                        width: "auto",
+                        height: "25px",
+                        // border: "1px solid black",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Paper
+                        elevation={0}
+                        sx={{
+                          width: "12px",
+                          height: "12px",
+                          background: "#D9D9D9",
+                          borderRadius: "2px",
+                        }}
+                      ></Paper>
+                      <p className="Answered">Not Visited</p>
+                    </Grid>
+                  </Grid>
+                  {/* <form> */}
+                  <button
+                    className="Submit"
+                    onClick={() => setsubmitModel(true)}
+                  >
+                    Submit
+                  </button>
+                  {/* </form> */}
+                </div>
+              </div>
+            </div>
+            <Dialog open={submitModel}>
+              <DialogContent>
+                <Typography variant="h6">Submit Exam ?</Typography>
+                <Typography variant="subtitle2">
+                  Once submitted, you cannot give exam again
+                </Typography>
+                <Box my={2}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      mr: "5px",
+                    }}
+                    onClick={() => setsubmitModel(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button variant="contained" onClick={endExam}>
+                    Submit
+                  </Button>
+                </Box>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </>
+      )}
+    </>
+  );
+};
+export default ExamPage;
