@@ -84,7 +84,7 @@ function Exam() {
           return (
             <div>
               <Main key={parameter.id}>
-                <Img src={img1} alt="images" />
+                {/* <Img src={img1} alt="images" /> */}
                 <Content>
                   <Title>
                     <Po>{parameter.name}</Po>
@@ -104,25 +104,29 @@ function Exam() {
                     <Startdate style={{ display: "flex", gap: "10px" }}>
                       Start Date
                       <Colon>:</Colon>
-                      {moment().format("l, LTS")}
+                      {moment(parameter.startDate).format("l, LTS")}
                     </Startdate>
                     <End style={{ display: "flex", gap: "17px" }}>
                       End Date
                       <Colon>:</Colon>
-                      {moment().format("l, LTS")}
+                      {moment(parameter.endDate).format("l, LTS")}
                     </End>
                   </Date>
                   <Underline>
                     <Border></Border>
                   </Underline>
                   <Foot>
-                    <RS>Rs200</RS>
+                    <RS>Rs {parameter.price || 200}</RS>
                     <form
                       action="https://esewa.com.np/epay/main"
                       method="POST"
                       style={{ padding: "0px" }}
                     >
-                      <input value="1" name="tAmt" type="hidden" />
+                      <input
+                        value="1"
+                        name="tAmt"
+                        type="hidden"
+                      />
                       <input value="1" name="amt" type="hidden" />
                       <input value="0" name="txAmt" type="hidden" />
                       <input value="0" name="psc" type="hidden" />

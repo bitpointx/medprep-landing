@@ -118,7 +118,7 @@ const Profile = () => {
             borderRadius="4px"
           >
             {localStorage.getItem("token") ? (
-              <Link to="/exam">
+              <Link to="/exams">
                 <button
                   style={{
                     fontFamily: "Rubik",

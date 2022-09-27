@@ -48,7 +48,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route element={<ProtectedRoute token={token} loading={loading} />}>
-          <Route path="exam" element={<Exam />} />
+          <Route path="/exams" element={<Exam />} />
         </Route>
         <Route path="/successpay" element={<SuccessScreen />} />
         <Route path="/web" element={<ExamPage />} />
