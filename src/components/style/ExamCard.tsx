@@ -138,7 +138,7 @@ export const Button = styled.button`
   text-align: center;
   text-transform: capitalize;
   color: #1472ba;
-  /* "&:active": {
-      background: "#efefef"
-    }, */
+  &:active {
+      background: #243745; 
+    }
 `;

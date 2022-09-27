@@ -140,7 +140,7 @@ const Profile = () => {
               </Link>
             ) : null}
           </CommonContainer>
-          <CommonContainer
+          {/* <CommonContainer
             padding="0px"
             width="200px"
             height="41px"
@@ -169,7 +169,7 @@ const Profile = () => {
                 Exam History
               </CommonContainer>
             </button>
-          </CommonContainer>
+          </CommonContainer> */}
           <CommonContainer
             padding="0px"
             width="200px"

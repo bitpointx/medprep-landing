@@ -8,6 +8,7 @@ import SuccessNotify from "./SuccessNotify";
 import ErorNotify from "./ErrorNotify";
 import { useDispatch } from "react-redux";
 import { setTokenGlobal } from "../../Redux/userSlice";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const firsturl = `${process.env.REACT_APP_API_URL}/web`;
 const secondurl = `${process.env.REACT_APP_API_URL}/web/verifyotp`;
@@ -21,6 +22,11 @@ function Modal({ handleClose }: any) {
   });
 
   const [open, setOpen] = useState(false);
+  const [circularProgress, setCircularProgress] = useState(false);
+
+  const loader = ()=> {
+    setCircularProgress(true)
+  }
   const handleCloseNotify = (
     event: React.SyntheticEvent | Event,
     reason?: string
@@ -49,6 +55,7 @@ function Modal({ handleClose }: any) {
   const [flag, setFlag] = useState(false);
 
   const apiCall = async (e: any) => {
+    setCircularProgress(true)
     e.preventDefault();
     try {
       const { name, email } = values;
@@ -59,7 +66,11 @@ function Modal({ handleClose }: any) {
       console.log(response);
       setFlag(true); //  This is for Show Next Otp modal.
       setOpen(true); //  This is for Show Successfull Notify message.
+    setCircularProgress(false)
+
     } catch (error) {
+    setCircularProgress(false)
+
       // This is for Shown Error message for user.
     }
   };
@@ -145,14 +156,15 @@ function Modal({ handleClose }: any) {
           </button>
           <button
             className="Send-Btn"
-            type="submit"
-            
+            type="submit"  
+            onClick={()=> setCircularProgress(true)}
             // disabled={!values.name || !values.email ? true : false}
           >
-           <span className='send-button-text'> Send Token </span>
+           <span className='send-button-text' > Send Token </span>
           </button>
         </div>
       </form>
+      
       <ErorNotify open={error} handleError={handleCloseError} />
       {/* This is for Show ERROR Notify message to user. */}
       <form

@@ -151,7 +151,7 @@ function Exam() {
                         type="hidden"
                         name="fu"
                       />
-                      <Button type="submit">Get Exam</Button>
+                      <Button type="submit" >Get Exam</Button>
                     </form>
                   </Foot>
                 </Content>
