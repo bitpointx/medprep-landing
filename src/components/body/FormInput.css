@@ -60,7 +60,7 @@ form{
   color: rgba(21, 25, 32, 0.5);
   cursor: pointer;
 }
-.Send-Btn{
+.Send-Btn {
   width:95px;
   height:35px;
   background: #1472BA;
@@ -73,7 +73,18 @@ form{
   font-size: 12px;
   color: #FFFFFF;
   cursor: pointer;
+ position: relative;
 }
+.Send-Btn:active {
+  background: #314859;
+}
+/* 
+  .send-button-text {
+    font: bold 15px 'Quicksand', san-serif;
+    color: #FFFFFF;
+    transition: all 0.2s;
+  } */
+
 .form-Input span{
   font-size: 12px;
   display: none;

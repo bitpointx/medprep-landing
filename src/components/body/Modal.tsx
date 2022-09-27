@@ -146,9 +146,10 @@ function Modal({ handleClose }: any) {
           <button
             className="Send-Btn"
             type="submit"
+            
             // disabled={!values.name || !values.email ? true : false}
           >
-            Send Token
+           <span className='send-button-text'> Send Token </span>
           </button>
         </div>
       </form>

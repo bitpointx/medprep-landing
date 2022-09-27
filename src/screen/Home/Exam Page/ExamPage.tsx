@@ -7,6 +7,7 @@ import {
   Grid,
   IconButton,
   Popover,
+  Stack,
   Typography,
 } from "@mui/material";
 import { Paper } from "@mui/material";
@@ -31,6 +32,18 @@ interface responseProps {
   startDate: number;
   endDate: number;
 }
+
+
+function Card ({title}: {title: string}) {
+  return (
+    <>
+    <Stack width="500px" height='300px' margin='auto' mt={10} boxShadow={1} justifyContent='center' alignItems='center' borderRadius={2}>
+       <Typography variant="h5">{title}</Typography>
+    </Stack>
+    </>
+  )
+}
+
 
 const onlineExamUrl = `${process.env.REACT_APP_API_URL}/web/exam`;
 const ExamPage = () => {
@@ -145,9 +158,9 @@ const ExamPage = () => {
     <>
       {responseTime.startDate && responseTime.endDate ? (
         currentTime < responseTime.startDate ? (
-          "Exam Not Started"
+          <Card title='Exam has not started.'/>
         ) : currentTime > responseTime.endDate ? (
-          "Ended has already ended"
+          <Card  title='Exam has ended successfully.'/>
         ) : (
           <>
             <div>
@@ -399,6 +412,7 @@ const ExamPage = () => {
         "Loading ..."
       )}
     </>
+    
   );
 };
 export default ExamPage;
