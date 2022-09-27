@@ -82,7 +82,7 @@ function Modal({ handleClose }: any) {
       localStorage.setItem("token", respon.data.accessToken);
       localStorage.setItem("user", respon.data.data.id);
 
-      navigate("/exam");
+      navigate("/exams");
     } catch (error) {
       setError(true); //  This is for Show ERROR Notify message to user.
       // user Signout
