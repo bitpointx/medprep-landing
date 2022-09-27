@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
 export const Main = styled.div`
   padding: 18px;
   width: 364px;
-  height: 435px;
+  height: 300px;
   background: #ffffff;
   border-radius: 8px;
 `;
