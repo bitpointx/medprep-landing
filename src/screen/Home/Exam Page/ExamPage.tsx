@@ -20,10 +20,10 @@ import moment from "moment";
 import Countdown from "react-countdown";
 import { useDispatch, useSelector } from "react-redux";
 import { setExamPage } from "../../../Redux/examsPageSlice";
-import ExamNotStarted from "./ExamNotStarted";
-import ExamTimeOver from "./ExamTimeOver";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { adminService } from "../../../http/admin-service";
+// import ExamNotStarted from "./ExamNotStarted";
+// import ExamTimeOver from "./ExamTimeOver";
+import {  useSearchParams } from "react-router-dom";
+// import { adminService } from "../../../http/admin-service";
 import SuccessNotify from "../../../components/body/SuccessNotify";
 
 interface responseProps {
@@ -42,7 +42,7 @@ const ExamPage = () => {
     startDate: 0,
     endDate: 0,
   });
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const token = searchParams.get("token");
 
@@ -73,13 +73,13 @@ const ExamPage = () => {
   };
   useEffect(() => {
     onlineExamData();
-  }, []);
+  });
 
   const questionlist = useSelector((state: any) => state.examPage.exampagelist);
 
   const [open, setopen] = useState(false);
   const [submitModel, setsubmitModel] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const ref = useRef(null);
   const handleClick = (e: any) => {
@@ -90,8 +90,8 @@ const ExamPage = () => {
     setopen(false);
   };
 
-  const examStart = responseTime.startDate;
-  const examEnd = responseTime.endDate;
+  // const examStart = responseTime.startDate;
+  // const examEnd = responseTime.endDate;
   const currentTime = new Date().getTime();
 
   const renderer = ({ hours, minutes, seconds }: any) => {

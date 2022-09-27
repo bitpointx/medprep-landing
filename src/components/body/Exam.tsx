@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import img2 from "../../components/images/help-circle.png";
 import img3 from "../../components/images/clock.png";
-import img1 from "../../components/images/Top-Img2.png";
+// import img1 from "../../components/images/Top-Img2.png";
 import moment from "moment";
 
 import {
@@ -14,7 +14,7 @@ import {
   Wrapper,
   Main,
   Content,
-  Img,
+  // Img,
   Title,
   Po,
   Time,
@@ -50,7 +50,7 @@ function Exam() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   const examing = useSelector((state: any) => state.examlist.exams);
   // console.log("Exam is:-", examing);
