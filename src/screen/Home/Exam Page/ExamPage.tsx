@@ -409,7 +409,8 @@ const ExamPage = () => {
           </>
         )
       ) : (
-        "No Exam Available..."
+        <Card title='Exam not available.'/>
+        
       )}
     </>
     
