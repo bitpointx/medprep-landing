@@ -409,7 +409,7 @@ const ExamPage = () => {
           </>
         )
       ) : (
-        "Loading ..."
+        "No Exam Available..."
       )}
     </>
     
