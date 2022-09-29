@@ -2,6 +2,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   exampagelist: [],
+  exam: null,
 };
 const examsPageSlice: any = createSlice({
   name: "examPage",
@@ -11,6 +12,7 @@ const examsPageSlice: any = createSlice({
       return {
         ...state,
         exampagelist: action.payload.question,
+        exam: action.payload.exam,
       };
       // state.exampagelist = action.payload.question;
     },

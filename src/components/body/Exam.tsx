@@ -50,7 +50,7 @@ function Exam() {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   const examing = useSelector((state: any) => state.examlist.exams);
   // console.log("Exam is:-", examing);
@@ -122,11 +122,7 @@ function Exam() {
                       method="POST"
                       style={{ padding: "0px" }}
                     >
-                      <input
-                        value="1"
-                        name="tAmt"
-                        type="hidden"
-                      />
+                      <input value="1" name="tAmt" type="hidden" />
                       <input value="1" name="amt" type="hidden" />
                       <input value="0" name="txAmt" type="hidden" />
                       <input value="0" name="psc" type="hidden" />
@@ -151,7 +147,7 @@ function Exam() {
                         type="hidden"
                         name="fu"
                       />
-                      <Button type="submit" >Get Exam</Button>
+                      <Button type="submit">Get Exam</Button>
                     </form>
                   </Foot>
                 </Content>

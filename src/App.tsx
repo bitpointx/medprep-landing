@@ -9,6 +9,8 @@ import SuccessScreen from "./components/body/SuccessScreen";
 import { selectToken } from "./Redux/userSlice";
 import Home from "./screen/Home";
 import ExamPage from "./screen/Home/Exam Page/ExamPage";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProtectedRoute = ({ token, loading }: any) => {
   // console.log("token", token);
@@ -54,6 +56,8 @@ function App() {
         <Route path="/web" element={<ExamPage />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
+      <ToastContainer />
+
       {/* </Layout> */}
     </>
   );
