@@ -1,111 +1,124 @@
-.Question-Wrapper{
-        /* width: 100%; */
-        width:941px;
-        height: auto;
-        background: #FFFFFF;
-        margin-top: 1.3rem ;
-        /* border: 1px solid red;  */
+.Question-Wrapper {
+  width: 900px;
+  /* border: 1px solid red; */
+  /* width: 100vh; */
+  /* max-width: 900px; */
+  /* height: auto; */
+  background: #ffffff;
+  margin-top: 1.3rem;
+  /* border: 1px solid red;  */
 }
-@media(max-width:540px) {
+@media (min-width: 300px) {
+  .Question-Wrapper {
+    /* max-width: 700px; */
+    width: 80vw;
+    /* background-color: pink; */
+  }
+}
+/* @media (max-width: 800) {
+  .Question-Wrapper {
+    width: 10%;
+  }
+} */
+/* @media(max-width:540px) {
         .Question-Wrapper{
           width:100%;
         }  
+  } */
+/* .Question-Main {
+  margin: 0.7rem 0;
+} */
+.Question-Container {
+  display: flex;
+  width: 95%;
+  margin: auto;
+}
+.Question-Top {
+  display: flex;
+  gap: 0px 13px;
+  /* border: 1px solid red; */
+}
+.Question-Top-Para {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #6b6b6b;
+}
+@media (max-width: 540px) {
+  .Question-Top-Para {
+    font-size: 14px;
   }
-.Question-Main{
-     margin: 0.7rem 0 ;
 }
-.Question-Container{  
-        display: flex;
-        width: 95%;
-        margin: auto;
+.Question {
+  display: flex;
+  width: 95%;
+  margin: auto;
+  margin-top: 7px;
+  /* border: 1px solid red; */
 }
-.Question-Top{
-    display: flex;
-    gap: 0px 13px;
-    /* border: 1px solid red; */
+.Question-Para {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #6b6b6b;
+  text-align: justify;
 }
-.Question-Top-Para{
-        font-family: "Rubik";
-        font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 20px;
-        color: #6B6B6B;
+@media (max-width: 540px) {
+  .Question-Para {
+    font-size: 14px;
+  }
 }
-@media(max-width:540px){
-        .Question-Top-Para{
-                font-size: 14px; 
-        }  
+.Container {
+  display: flex;
+  flex-direction: column;
 }
-.Question{
-    display: flex;
-     width:95%;
-     margin: auto;
-    margin-top: 7px;
-    /* border: 1px solid red; */
+.OptionA {
+  display: flex;
+  /* flex-wrap: wrap; */
+  width: 85%;
+  margin: auto;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  /* border: 1px solid red; */
 }
-.Question-Para{
-        font-family: "Rubik";
-        font-style:  normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 20px;
-        color: #6B6B6B;
-        text-align: justify;
+.CircleA {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 0.666667px solid rgba(107, 107, 107, 0.51);
 }
-@media(max-width:540px){
-        .Question-Para{
-                font-size: 14px; 
-        }  
+.CircleA-Para {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12.3284px;
+  line-height: 27px;
+  color: rgba(107, 107, 107, 0.51);
+  text-align: center;
 }
-.Container{
-        display: flex;
-        flex-direction: column;      
-
+.Middle {
+  width: 86%;
+  /* border: 1px solid blueviolet; */
 }
-.OptionA{
-        display: flex;
-        width: 85%;
-        margin: auto;
-        align-items:center;
-        justify-content: space-between;
-        margin-top: 12px;
-        /* border: 1px solid red; */
-        
+@media (max-width: 540px) {
+  .Middle {
+    width: 68%;
+  }
 }
-.CircleA{
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        border:  0.666667px solid rgba(107, 107, 107, 0.51);   
+.Middle-Para {
+  font-family: "Rubik";
+  font-style: "normal";
+  font-weight: 400;
+  font-size: 16px;
+  color: #6b6b6b;
 }
-.CircleA-Para{
-        font-family: "Rubik";
-        font-style: normal;
-        font-weight: 600;
-        font-size: 12.3284px;
-        line-height: 27px;
-        color: rgba(107, 107, 107, 0.51);
-        text-align: center;
-}
-.Middle{
-     width: 86%;
-     /* border: 1px solid blueviolet; */
-}
-@media(max-width:540px){
-        .Middle{
-                width:68%;    
-        }
-}
-.Middle-Para{
-        font-family: "Rubik";
-        font-style: "normal";
-        font-weight: 400;
-        font-size: 16px;
-        color: #6B6B6B;
-}
-@media(max-width:540px){
-        .Middle-Para{
-                font-size: 14.5px;   
-        }
+@media (max-width: 540px) {
+  .Middle-Para {
+    font-size: 14.5px;
+  }
 }

@@ -7,6 +7,7 @@ import {
   Dialog,
   DialogContent,
   Grid,
+  Hidden,
   IconButton,
   Popover,
   Stack,
@@ -107,6 +108,20 @@ const ExamPage = () => {
   useEffect(() => {
     onlineExamData();
 
+    const interval = setInterval(() => {
+      onlineExamData();
+
+      // if (
+      //   responseTime.endDate > 0 &&
+      //   responseTime.endDate <= new Date().getTime()
+      // ) {
+      //   // endExam();
+      //   // console.log(responseTIme.endDate)
+      //   console.log("ended auto");
+      // }
+    }, 20000);
+
+    return () => clearInterval(interval);
     // if (responseTime.endDate) {
     //   if (currentTime > responseTime.end) {
     //     setautomaticEndExam(true);
@@ -174,20 +189,18 @@ const ExamPage = () => {
     } else {
       alert("No Result Id");
     }
-    // const response = await axios.patch(
-    //   `${process.env.REACT_APP_BACKEND_URL}/app/results/${resultId}`,
-    //   {
-    //     isCompleted: true,
-    //   }
-    // );
   };
+
+  // setTimeout(()=>{
+  //   console.log('hi')
+  // },2000)
   // const notify = () => toast("our exam has been submitted");
 
-  if (responseTime.endDate > Date.now()) {
-    setTimeout(() => {
-      endExam();
-    }, Math.floor(responseTime.endDate - Date.now()));
-  }
+  // if (responseTime.endDate > Date.now()) {
+  //   setTimeout(() => {
+  //     endExam();
+  //   }, Math.floor(responseTime.endDate - Date.now()));
+  // }
 
   return (
     <>
@@ -206,7 +219,6 @@ const ExamPage = () => {
         <ExamEnded />
       ) : currentExam.isCompleted ? (
         <ExamEnded />
-        
       ) : (
         <>
           <div>
@@ -259,171 +271,203 @@ const ExamPage = () => {
               </Popover>
             </div>
             <div className="Left-Container">
-              <div className="Left-Container-width">
-                <div className="Left-Container-Main">
-                  <div className="Left-Container-Header">
-                    <div className="Left-Container-Mark">
-                      <p>Mark</p>
-                      <p>:&nbsp; 100</p>
-                    </div>
-                    <div className="Left-Container-Question">
-                      <p>Questions</p>
-                      <p>:&nbsp; 30</p>
-                    </div>
-                  </div>
-                  <div className="Left-Container-Timer">
-                    <div className="Left-Container-StartTime">
-                      <p>Start Time </p>
-                      <p>
-                        :&nbsp; {moment(responseTime.startDate).format("LTS")}
-                      </p>
-                    </div>
-                    <div className="Left-Container-EndTime">
-                      <p>End Time</p>
-                      <p>
-                        :&nbsp; {moment(responseTime.endDate).format("LTS")}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {questionlist.map((abc: any, index: number) => {
-                  return (
-                    <>
-                      <div className="ExamPageCard">
-                        <NormalQuestion item={abc} index={index} />
+              <Grid container>
+                <Grid xs={9}>
+                  <div className="Left-Container-width">
+                    <div className="Left-Container-Main">
+                      <div className="Left-Container-Header">
+                        <div className="Left-Container-Mark">
+                          <p>Mark</p>
+                          <p>:&nbsp; 100</p>
+                        </div>
+                        <div className="Left-Container-Question">
+                          <p>Questions</p>
+                          <p>:&nbsp; 30</p>
+                        </div>
                       </div>
-                    </>
-                  );
-                })}
-              </div>
-              <div className="RefWrapper">
-                <div className="RefMain">
-                  <div>
-                    <p className="RefPara">Reference</p>
-                  </div>
-                  <Grid container>
-                    {questionlist.map((select: any, index: number) => {
+                      <div className="Left-Container-Timer">
+                        <div className="Left-Container-StartTime">
+                          <p>Start Time </p>
+                          <p>
+                            :&nbsp;{" "}
+                            {moment(responseTime.startDate).format("LTS")}
+                          </p>
+                        </div>
+                        <div className="Left-Container-EndTime">
+                          <p>End Time</p>
+                          <p>
+                            :&nbsp; {moment(responseTime.endDate).format("LTS")}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    {questionlist.map((abc: any, index: number) => {
                       return (
                         <>
-                          <Grid item xl={2} sx={{ padding: "8px 0" }}>
-                            <Paper
-                              sx={{
-                                width: "42px",
-                                height: "42px",
-                                color: `${
-                                  select.selectedAnswer ? "#F1F7F6" : "#F1F7F6"
-                                }`,
-                                borderRadius: "50%",
-                                margin: "0 auto",
-                                background: `${
-                                  select.selectedAnswer ? "#01B39A" : "#FC3D39"
-                                }`,
-                              }}
-                            >
-                              <p className="Number">{index + 1}</p>
-                            </Paper>
-                          </Grid>
+                          <div className="ExamPageCard">
+                            <div >
+                              <NormalQuestion item={abc} index={index} />
+                            </div>
+                          </div>
                         </>
                       );
                     })}
-                  </Grid>
-                  <Grid
-                    container
-                    spacing={0}
-                    sx={{
-                      height: "25px",
-                      // border: "1px solid red",
-                      margin: "36px 0",
-                    }}
-                  >
-                    <Grid
-                      item
-                      xs={12}
-                      lg={6}
-                      xl={4}
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "7px",
-                        height: "25px",
-                        // border: "1px solid black",
-                      }}
-                    >
-                      <Paper
-                        elevation={0}
-                        sx={{
-                          width: "12px",
-                          height: "12px",
-                          background: "#01B39A",
-                          borderRadius: "2px",
-                        }}
-                      ></Paper>
+                    {/* <div>
+                  {currentExam.embeddedQuestionAns.map((each: any) => {
+                    console.log(each);
+                    return (
+                      <>
+                        <p>{each.question.textQuestion}</p>
+                        {each.questionAns.map((element: any, index: any) => {
+                          return (
+                            <div className="ExamPageCard">
+                              <NormalQuestion item={element} index={index} />
+                            </div>
+                          );
+                        })}
+                      </>
+                    );
+                  })}
+                </div> */}
+                  </div>
+                </Grid>
+                <Grid xs={3}>
+                  <Hidden lgDown>
+                    <div className="RefWrapper">
+                      <div className="RefMain">
+                        <div>
+                          <p className="RefPara">Reference</p>
+                        </div>
+                        <Grid container>
+                          {questionlist.map((select: any, index: number) => {
+                            return (
+                              <>
+                                <Grid item xl={2} sx={{ padding: "8px 0" }}>
+                                  <Paper
+                                    sx={{
+                                      width: "42px",
+                                      height: "42px",
+                                      color: `${
+                                        select.selectedAnswer
+                                          ? "#F1F7F6"
+                                          : "#F1F7F6"
+                                      }`,
+                                      borderRadius: "50%",
+                                      margin: "0 5px",
+                                      background: `${
+                                        select.selectedAnswer
+                                          ? "#01B39A"
+                                          : "#FC3D39"
+                                      }`,
+                                    }}
+                                  >
+                                    <p className="Number">{index + 1}</p>
+                                  </Paper>
+                                </Grid>
+                              </>
+                            );
+                          })}
+                        </Grid>
+                        <Grid
+                          container
+                          spacing={0}
+                          sx={{
+                            height: "25px",
+                            // border: "1px solid red",
+                            margin: "36px 0",
+                          }}
+                        >
+                          <Grid
+                            item
+                            xs={12}
+                            lg={6}
+                            xl={4}
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: "7px",
+                              height: "25px",
+                              // border: "1px solid black",
+                            }}
+                          >
+                            <Paper
+                              elevation={0}
+                              sx={{
+                                width: "12px",
+                                height: "12px",
+                                background: "#01B39A",
+                                borderRadius: "2px",
+                              }}
+                            ></Paper>
 
-                      <p className="Answered">Answered</p>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      lg={6}
-                      xl={4}
-                      sx={{
-                        display: "flex",
-                        gap: "7px",
-                        height: "25px",
-                        // border: "1px solid black",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Paper
-                        elevation={0}
-                        sx={{
-                          width: "12px",
-                          height: "12px",
-                          background: "#FC3D39",
-                          borderRadius: "2px",
-                        }}
-                      ></Paper>
-                      <p className="Answered">Not Answered</p>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      lg={6}
-                      xl={4}
-                      sx={{
-                        display: "flex",
-                        gap: "7px",
-                        width: "auto",
-                        height: "25px",
-                        // border: "1px solid black",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Paper
-                        elevation={0}
-                        sx={{
-                          width: "12px",
-                          height: "12px",
-                          background: "#D9D9D9",
-                          borderRadius: "2px",
-                        }}
-                      ></Paper>
-                      <p className="Answered">Not Visited</p>
-                    </Grid>
-                  </Grid>
-                  {/* <form> */}
-                  <button
-                    className="Submit"
-                    onClick={() => setsubmitModel(true)}
-                  >
-                    Submit
-                  </button>
-                  {/* </form> */}
-                </div>
-              </div>
+                            <p className="Answered">Answered</p>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            lg={6}
+                            xl={4}
+                            sx={{
+                              display: "flex",
+                              gap: "7px",
+                              height: "25px",
+                              // border: "1px solid black",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Paper
+                              elevation={0}
+                              sx={{
+                                width: "12px",
+                                height: "12px",
+                                background: "#FC3D39",
+                                borderRadius: "2px",
+                              }}
+                            ></Paper>
+                            <p className="Answered">Not Answered</p>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            lg={6}
+                            xl={4}
+                            sx={{
+                              display: "flex",
+                              gap: "7px",
+                              width: "auto",
+                              height: "25px",
+                              // border: "1px solid black",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Paper
+                              elevation={0}
+                              sx={{
+                                width: "12px",
+                                height: "12px",
+                                background: "#D9D9D9",
+                                borderRadius: "2px",
+                              }}
+                            ></Paper>
+                            <p className="Answered">Not Visited</p>
+                          </Grid>
+                        </Grid>
+                        {/* <form> */}
+                        <button
+                          className="Submit"
+                          onClick={() => setsubmitModel(true)}
+                        >
+                          Submit
+                        </button>
+                        {/* </form> */}
+                      </div>
+                    </div>
+                  </Hidden>
+                </Grid>
+              </Grid>
             </div>
             <Dialog open={submitModel}>
               <DialogContent>
