@@ -8,7 +8,7 @@ import SuccessNotify from "./SuccessNotify";
 import ErorNotify from "./ErrorNotify";
 import { useDispatch } from "react-redux";
 import { setTokenGlobal } from "../../Redux/userSlice";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 const firsturl = `${process.env.REACT_APP_API_URL}/web`;
 const secondurl = `${process.env.REACT_APP_API_URL}/web/verifyotp`;
@@ -23,10 +23,11 @@ function Modal({ handleClose }: any) {
 
   const [open, setOpen] = useState(false);
   const [circularProgress, setCircularProgress] = useState(false);
+  const [verifyTokenProgress, setverifyTokenProgress] = useState(false);
 
-  const loader = ()=> {
-    setCircularProgress(true)
-  }
+  const loader = () => {
+    setCircularProgress(true);
+  };
   const handleCloseNotify = (
     event: React.SyntheticEvent | Event,
     reason?: string
@@ -55,7 +56,7 @@ function Modal({ handleClose }: any) {
   const [flag, setFlag] = useState(false);
 
   const apiCall = async (e: any) => {
-    setCircularProgress(true)
+    setCircularProgress(true);
     e.preventDefault();
     try {
       const { name, email } = values;
@@ -66,10 +67,9 @@ function Modal({ handleClose }: any) {
       console.log(response);
       setFlag(true); //  This is for Show Next Otp modal.
       setOpen(true); //  This is for Show Successfull Notify message.
-    setCircularProgress(false)
-
+      setCircularProgress(false);
     } catch (error) {
-    setCircularProgress(false)
+      setCircularProgress(false);
 
       // This is for Shown Error message for user.
     }
@@ -81,6 +81,7 @@ function Modal({ handleClose }: any) {
 
   const verifyOtp = async (e: any) => {
     e.preventDefault();
+    setverifyTokenProgress(true);
     try {
       const { otp } = show;
       const respon = await axios.post(secondurl, {
@@ -92,9 +93,11 @@ function Modal({ handleClose }: any) {
       // user login
       localStorage.setItem("token", respon.data.accessToken);
       localStorage.setItem("user", respon.data.data.id);
+      setverifyTokenProgress(true);
 
       navigate("/exams");
     } catch (error) {
+      setverifyTokenProgress(true);
       setError(true); //  This is for Show ERROR Notify message to user.
       // user Signout
     }
@@ -156,15 +159,18 @@ function Modal({ handleClose }: any) {
           </button>
           <button
             className="Send-Btn"
-            type="submit"  
-            onClick={()=> setCircularProgress(true)}
-            // disabled={!values.name || !values.email ? true : false}
+            type="submit"
+            // onClick={()=> setCircularProgress(true)}
+            disabled={circularProgress}
           >
-           <span className='send-button-text' > Send Token </span>
+            <span className="send-button-text">
+              {" "}
+              {circularProgress ? "Loading ..." : "Send Token"}{" "}
+            </span>
           </button>
         </div>
       </form>
-      
+
       <ErorNotify open={error} handleError={handleCloseError} />
       {/* This is for Show ERROR Notify message to user. */}
       <form
@@ -210,8 +216,12 @@ function Modal({ handleClose }: any) {
           <button onClick={handleClose} className="Cancel-Btn">
             Cancel
           </button>
-          <button type="submit" className="Send-Btn">
-            Done
+          <button
+            type="submit"
+            className="Send-Btn"
+            disabled={verifyTokenProgress}
+          >
+            {verifyTokenProgress ? "Verifying ..." : "Verify"}
           </button>
         </div>
       </form>

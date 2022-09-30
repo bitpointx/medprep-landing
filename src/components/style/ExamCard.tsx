@@ -22,8 +22,9 @@ export const Wrapper = styled.div`
 `;
 export const Main = styled.div`
   padding: 18px;
+  // background: red;
   width: 364px;
-  height: 300px;
+  height: auto;
   background: #ffffff;
   border-radius: 8px;
 `;
