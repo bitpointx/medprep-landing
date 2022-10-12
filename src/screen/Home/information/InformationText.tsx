@@ -9,10 +9,7 @@ const InformationText = () => {
         Why Choose Med Prep Nepal?
       </CommonTextField>
       <CommonTextField padding="8px 0px 70px 0px" textAlign="center">
-        To boost your preparation with the best. Enrich your knowledge with
-        highly <br /> informative, engaging content crafted by the Dream Team.
-        Access the best quality <br />
-        content and turn any place into a classroom whenever you want.
+        To enhance your preparation with the Finest Faculty
       </CommonTextField>
     </CommonContainer>
   );

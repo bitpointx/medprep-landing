@@ -49,18 +49,14 @@ function UniqueApp() {
         </Div1>
         <Div2>
           <SPAN>
-            Videos, QBanks, Test <br />
+            QBank, Test Series, Notes &amp; More<br />
           </SPAN>
-          <SPAN>Series, Notes & More</SPAN>
+
           <P1>
-            Find'perfect match'driving instructors by different criteria,
-            <br />
-            depending on what's important to you. Browse, search and <br />
-            sort: by location, according to what times they have free <br />
-            slots; by price; car brand; transmission type; and more. <br />
-            Getting behind the steering wheel much easier.
+            Access the Med-Prep Nepal app on the device of your choice &amp; reap the benefits of top-notch content-
+            be it IOS, Android or Laptop.
           </P1>
-          <Div3>
+          {/* <Div3>
             <IMG2 src={img2} alt="images" />
             <P2>
               Smart Communication system helps you get response <br /> quick and
@@ -73,12 +69,12 @@ function UniqueApp() {
               Access all the instructor's free slots around you, make <br />{" "}
               different bookings by your needs.
             </P3>
-          </Div4>
+          </Div4> */}
 
           {/* Modal Starting here */}
           {localStorage.getItem("token") ? null : (
             <Btn type="button" onClick={handleClickOpen}>
-              Buy Token
+              Enroll now
             </Btn>
           )}
           <Dialog

@@ -31,7 +31,19 @@ const LearnContainer = () => {
             Why Wait More? Start your Learning Journey
           </CommonTextField>
           <CommonTextField size="extraSmall" color="#F1F7F6" textAlign="center">
-            Get the free Med Prep Nepal app Nepal on your phone
+            No more waiting! It’s time to Own Your Dream.
+
+          </CommonTextField>
+
+          <CommonTextField size="extraSmall" color="#F1F7F6" textAlign="center">
+            Become a part of the Med-­Prep Nepal family today and beat the exam
+            blues.
+
+          </CommonTextField>
+
+          <CommonTextField size="extraSmall" color="#F1F7F6" textAlign="center">
+            We empathize with our students to not only nurture them to be
+            exam­ ready but also help them achieve their dream.
           </CommonTextField>
         </CommonContainer>
         <CommonContainer

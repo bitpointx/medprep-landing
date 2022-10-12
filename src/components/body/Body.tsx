@@ -22,20 +22,28 @@ const Body = () => {
     <>
       <Background>
         <Main>
-          <H2>Crack your tough exams.</H2>
-          <H3>Within your mobile app.</H3>
+          <H2>EMBARK Your Exam Preparation
+          </H2>
+          <H3> With The Med-Prep Team</H3>
           <Para>
-            Engaging Videeos, top-notch study material, high yeild
+            High-yield Qbank, first-rate study material, and the best of everything - just a click away.
             <br />
             QBank and the best of everything - just a click away.
           </Para>
           <Div1>
-            <Link to="#">
-              <A>
-                <Img1 src={AppStore} alt="app-store-logo" />
+
+            <A>
+              <a href="https://apps.apple.com/in/app/bitpointx-learning/id1608208163" target={"_blank"} rel="noreferrer">
+                <Img1 src={AppStore} alt="app-store-logo" /></a>
+
+
+              <a href="https://play.google.com/store/apps/details?id=au.com.bitpointx.classroomapp&hl=en&gl=US" target={"_blank"} rel="noreferrer">
                 <Img2 src={GooglePlayStore} alt="app-store-logo" />
-              </A>
-            </Link>
+              </a>
+
+
+            </A>
+
           </Div1>
         </Main>
         <Div2>

@@ -11,12 +11,14 @@ import {
   Img,
 } from "../../../components/style/Menubar";
 import CommonContainer from "../../../components/Global/Container";
-import { Avatar, IconButton, Popover } from "@mui/material";
+import { Avatar, Button, Dialog, IconButton, Popover } from "@mui/material";
 import { selectEmail } from "../../../Redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import img1 from "../../../components/images/medprep_logo.png";
 import img2 from "../../../components/images/avatar.png";
 import { adminService } from "../../../http/admin-service";
+import { Btn } from "../../../components/style/AwesomeApp";
+import Modal from "../../../components/body/Modal";
 
 // const profileurl = `${process.env.REACT_APP_API_URL}/web/profile`;
 
@@ -37,7 +39,7 @@ const Navbar = () => {
     // );
     try {
       await adminService.setActiveUser(dispatch);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     profileData();
@@ -45,6 +47,7 @@ const Navbar = () => {
 
   const email: any = useSelector(selectEmail);
   const [open, setopen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const ref = useRef(null);
   const handleClick = (event: any) => {
     event.preventDefault();
@@ -53,6 +56,17 @@ const Navbar = () => {
   const handleClose = () => {
     setopen(false);
   };
+
+  const handleDialogClickOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+
+
   return (
     <>
       <CommonContainer
@@ -82,9 +96,22 @@ const Navbar = () => {
           <Link to="#" style={{ textDecoration: "none" }}>
             <A0>Medprep Mobile App</A0>
           </Link>
-          <Link to="#" style={{ textDecoration: "none" }}>
+          {/* <Link to="#" style={{ textDecoration: "none" }}>
             <A1>Medprep Web Exam</A1>
-          </Link>
+          </Link> */}
+          {localStorage.getItem("token") ? null : (
+            <Button type="submit" onClick={handleDialogClickOpen}>
+              START PREPARING NOW
+            </Button>
+          )}
+          <Dialog
+            open={dialogOpen}
+            // onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <Modal handleClose={handleDialogClose} />
+          </Dialog>
           {email ? (
             <IconButton onClick={handleClick} ref={ref!}>
               <Avatar src={img2} />
