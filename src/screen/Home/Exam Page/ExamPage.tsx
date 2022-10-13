@@ -33,6 +33,7 @@ import ExamEnded from "../../../components/notice/ExamEnded";
 import { NotStarted } from "@mui/icons-material";
 import ExamNotStarted from "../../../components/notice/ExamNotStarted";
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from 'react-scroll'
 
 interface responseProps {
   data: any;
@@ -274,7 +275,7 @@ const ExamPage = () => {
               <Grid container>
                 <Grid xs={9}>
                   <div className="Left-Container-width">
-                    <div className="Left-Container-Main">
+                    <div className="Left-Container-Main"  >
                       <div className="Left-Container-Header">
                         <div className="Left-Container-Mark">
                           <p>Mark</p>
@@ -333,8 +334,8 @@ const ExamPage = () => {
                 </Grid>
                 <Grid xs={3}>
                   <Hidden lgDown>
-                    <div className="RefWrapper">
-                      <div className="RefMain">
+                  <div className="RefWrapper">
+                      <div className="RefMain" >
                         <div>
                           <p className="RefPara">Reference</p>
                         </div>
@@ -343,10 +344,12 @@ const ExamPage = () => {
                             return (
                               <>
                                 <Grid item xl={2} sx={{ padding: "8px 0" }}>
+                                  {/* <Link to={true} offset> */}
                                   <Paper
                                     sx={{
                                       width: "42px",
                                       height: "42px",
+                                      border: '1px solid red',
                                       color: `${
                                         select.selectedAnswer
                                           ? "#F1F7F6"
@@ -361,8 +364,9 @@ const ExamPage = () => {
                                       }`,
                                     }}
                                   >
-                                    <p className="Number">{index + 1}</p>
+                                    <Link className="Number" to={('/exam')} smooth={true} offset={-100} duration={500} >{index + 1}</Link>
                                   </Paper>
+                                
                                 </Grid>
                               </>
                             );
@@ -456,12 +460,14 @@ const ExamPage = () => {
                           </Grid>
                         </Grid>
                         {/* <form> */}
+                        <div className="Button-Wrapper">
                         <button
                           className="Submit"
                           onClick={() => setsubmitModel(true)}
                         >
                           Submit
                         </button>
+                        </div>
                         {/* </form> */}
                       </div>
                     </div>

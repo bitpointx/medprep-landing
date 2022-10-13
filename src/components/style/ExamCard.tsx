@@ -12,6 +12,7 @@ export const Img3 = styled.img`
 export const Colon = styled.div``;
 export const Wrapper = styled.div`
   display: flex;
+  border: 1px solid red;
   justify-content: center;
   flex-wrap: wrap;
   padding: 0;

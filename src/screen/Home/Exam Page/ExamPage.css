@@ -62,6 +62,7 @@
 
 .Left-Container-width{
         width: 72%;  
+        /* position: relative; */
 }
 @media(max-width:540px) {
         .Left-Container-width{
@@ -69,8 +70,8 @@
         }  
   }
 .Left-Container-Main{
-        position: sticky;
-        top: 56px;
+        position: relative;
+        /* top: 56px; */
         z-index: 1;
         display: flex;
         font-family: "Rubik";
@@ -104,7 +105,9 @@
   }
 .Left-Container-Mark{
  display: flex; 
- gap: 0px 54px;
+ gap: 54px 54px;
+ padding-left: 40px;
+ /* border: 1px solid red; */
  line-height: 20px;
 }
 @media(max-width:540px) {
@@ -115,6 +118,7 @@
 .Left-Container-Question{
      display: flex; 
      gap: 0px 20px; 
+     padding-left: 40px;
      line-height: 20px;
 }
 .Left-Container-Timer{
@@ -147,6 +151,7 @@
     top: 56px;
     background: white;
     width: 100%;
+    overflow-x: hidden;
     height: 92.5vh;
     display: flex;
     justify-content: center;
@@ -191,12 +196,19 @@
   line-height: 40px;
   text-align: center;            
 }
+.Button-Wrapper {
+ display: flex;
+ justify-content: center;
+ padding-bottom: 30px; 
+ /* border: 1px solid red;      */
+}
+
 .Submit{
 display: flex;
 flex-direction: row;
 align-items: center;
 justify-content: center;
-margin: auto;
+/* margin-bottom: 40px; */
 color: #F1F7F6;
 font-family: 'Rubik';
 font-style: normal;
@@ -204,6 +216,7 @@ font-weight: 500;
 font-size: 15px;
 text-align: center;
 width: 145px;
+/* border: 1px solid red; */
 height: 50px;
 background: #1472BA;
 box-shadow: 5px 7px 30px rgba(1, 179, 154, 0.2);
