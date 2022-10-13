@@ -83,9 +83,9 @@ function Exam() {
         {examing.map((parameter: any) => {
           return (
             <div>
-              <Main key={parameter.id}>
+              <Main key={parameter.id} >
                 {/* <Img src={img1} alt="images" /> */}
-                <Content>
+                <Content >
                   <Title>
                     <Po>{parameter.name}</Po>
                   </Title>

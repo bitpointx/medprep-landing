@@ -31,11 +31,12 @@ function ErorNotify({ open, handleError }: any) {
       >
         <Box
           sx={{
-            display: "flex",
+            // display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
             width: "355px",
             height: "44px",
+            // border: '1px solid red',
             background: "#B00020",
             border: "1px solid #B00020",
             borderRadius: "4px",

@@ -68,6 +68,7 @@ const QNinputData: React.FC<QNinputDataProps> = ({
     <FormControl>
       <RadioGroup
         sx={{
+          // border: '1px solid',
           "& .MuiSvgIcon-root": {
             borderRadius: 0,
           },
@@ -82,8 +83,8 @@ const QNinputData: React.FC<QNinputDataProps> = ({
       >
         <GlobalStyle />
         {/* <form style={{ border: "1px solid red" }}> */}
-        <div className="Question-Wrapper">
-          <div className="Question-Main">
+        <div className="Question-Wrapper" style={{ padding: '10px'}}>
+          <div  style={{ width: '100%', maxWidth: '950px'}}>
             <div className="Question-Container">
               <div className="Question-Top">
                 <p className="Question-Top-Para">Question</p>

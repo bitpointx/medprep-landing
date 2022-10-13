@@ -15,6 +15,7 @@ input{
 }
 .main {
     display:flex;
+    /* border: 10px solid red; */
     justify-content: center;
     height:40px;
     background-color: #f5f7fb;
@@ -24,6 +25,7 @@ input{
     position: relative;
 }
 .Btn{
+  /* border: 1px solid red; */
   margin-top: 1rem;
   display: flex;
   justify-content: center;
