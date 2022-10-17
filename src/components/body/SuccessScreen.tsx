@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button, Typography, Box, Stack } from "@mui/material";
 import Img from "../images/successpay.jpg";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
 const Img1 = styled.img`
   display: block;
@@ -36,6 +37,7 @@ const SuccessScreen = () => {
       );
       //   notify("Email sent succeessfully");
     } catch (error) {
+      toast("Failed to create exam for you. Please contact the admin");
       // alert("Hello");
       // localStorage.removeItem("user");
       //   notify("Failed To send email");
@@ -62,7 +64,11 @@ const SuccessScreen = () => {
           <span
             // onClick={}
             onClick={createToken}
-            style={{ textDecoration: "underline", color: "red", cursor: "pointer" }}
+            style={{
+              textDecoration: "underline",
+              color: "red",
+              cursor: "pointer",
+            }}
           >
             here
           </span>{" "}

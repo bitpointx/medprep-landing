@@ -44,15 +44,16 @@ function Exam() {
   const dispatch = useDispatch();
   const fetchData = async () => {
     try {
-      await adminService.setExamData(dispatch);
     } catch (error) {}
   };
 
   useEffect(() => {
-    fetchData();
+    adminService.setExamData(dispatch);
+
+    // fetchData();
   }, []);
 
-  const examing = useSelector((state: any) => state.examlist.exams);
+  const examLists = useSelector((state: any) => state.examlist.exams);
   // console.log("Exam is:-", examing);
   return (
     <>
@@ -80,81 +81,99 @@ function Exam() {
         </p>
       </Background>
       <Wrapper>
-        {examing.map((parameter: any) => {
-          return (
-            <div>
-              <Main key={parameter.id} >
-                {/* <Img src={img1} alt="images" /> */}
-                <Content >
-                  <Title>
-                    <Po>{parameter.name}</Po>
-                  </Title>
-                  <Time>
-                    <QN>
-                      <Img1 src={img2} alt="images" />
-                      <P1>{parameter.questions.length} Questions</P1>
-                    </QN>
-                    <MIN>
-                      <Img2 src={img3} alt="images" />
-                      <P2>{parameter.time} minutes</P2>
-                    </MIN>
-                    <Sec></Sec>
-                  </Time>
-                  <Date>
-                    <Startdate style={{ display: "flex", gap: "10px" }}>
-                      Start Date
-                      <Colon>:</Colon>
-                      {moment(parameter.startDate).format("l, LTS")}
-                    </Startdate>
-                    <End style={{ display: "flex", gap: "17px" }}>
-                      End Date
-                      <Colon>:</Colon>
-                      {moment(parameter.endDate).format("l, LTS")}
-                    </End>
-                  </Date>
-                  <Underline>
-                    <Border></Border>
-                  </Underline>
-                  <Foot>
-                    <RS>Rs {parameter.price || 200}</RS>
-                    <form
-                      action="https://esewa.com.np/epay/main"
-                      method="POST"
-                      style={{ padding: "0px" }}
-                    >
-                      <input value="1" name="tAmt" type="hidden" />
-                      <input value="1" name="amt" type="hidden" />
-                      <input value="0" name="txAmt" type="hidden" />
-                      <input value="0" name="psc" type="hidden" />
-                      <input value="0" name="pdc" type="hidden" />
-                      <input
-                        value={process.env.REACT_APP_MERCHANT_ID}
-                        name="scd"
-                        type="hidden"
-                      />
-                      <input
-                        value={`${uuidv4()}_${parameter.id}`}
-                        name="pid"
-                        type="hidden"
-                      />
-                      <input
-                        value={`${process.env.REACT_APP_FRONTEND_URL}/successpay`}
-                        type="hidden"
-                        name="su"
-                      />
-                      <input
-                        value={`${process.env.REACT_APP_FRONTEND_URL}/exams`}
-                        type="hidden"
-                        name="fu"
-                      />
-                      <Button type="submit">Get Exam</Button>
-                    </form>
-                  </Foot>
-                </Content>
-              </Main>
-            </div>
-          );
-        })}
+        {examLists.length === 0
+          ? "No Available Exams"
+          : examLists.map((parameter: any) => {
+              return (
+                <div>
+                  <Main key={parameter.id}>
+                    {/* <Img src={img1} alt="images" /> */}
+                    <Content>
+                      <Title>
+                        <Po>{parameter.name}</Po>
+                      </Title>
+                      <Time>
+                        <QN>
+                          <Img1 src={img2} alt="images" />
+                          <P1>{parameter.questions.length} Questions</P1>
+                        </QN>
+                        <MIN>
+                          <Img2 src={img3} alt="images" />
+                          <P2>{parameter.time} minutes</P2>
+                        </MIN>
+                        <Sec></Sec>
+                      </Time>
+                      <Date>
+                        <Startdate style={{ display: "flex", gap: "10px" }}>
+                          Start Date
+                          <Colon>:</Colon>
+                          {moment(parameter.startDate).format("l, LTS")}
+                        </Startdate>
+                        <End style={{ display: "flex", gap: "17px" }}>
+                          End Date
+                          <Colon>:</Colon>
+                          {moment(parameter.endDate).format("l, LTS")}
+                        </End>
+                      </Date>
+                      <Underline>
+                        <Border></Border>
+                      </Underline>
+                      <Foot>
+                        <RS>Rs {parameter.price || 200}</RS>
+                        <form
+                          action="https://esewa.com.np/epay/main"
+                          method="POST"
+                          style={{ padding: "0px" }}
+                        >
+                          <input value="1" name="tAmt" type="hidden" />
+                          <input value="1" name="amt" type="hidden" />
+                          <input value="0" name="txAmt" type="hidden" />
+                          <input value="0" name="psc" type="hidden" />
+                          <input value="0" name="pdc" type="hidden" />
+                          <input
+                            value={process.env.REACT_APP_MERCHANT_ID}
+                            name="scd"
+                            type="hidden"
+                          />
+                          <input
+                            value={`${uuidv4()}_${parameter.id}`}
+                            name="pid"
+                            type="hidden"
+                          />
+                          <input
+                            value={`${process.env.REACT_APP_FRONTEND_URL}/successpay`}
+                            type="hidden"
+                            name="su"
+                          />
+                          <input
+                            value={`${process.env.REACT_APP_FRONTEND_URL}/exams`}
+                            type="hidden"
+                            name="fu"
+                          />
+                          <Button type="submit">
+                            {parameter.alreadyGiven ? "Re-exam" : "Give Exam"}
+                          </Button>
+
+                          {parameter.pdf && (
+                            <Button
+                              type="submit"
+                              style={{ marginLeft: "10px" }}
+                            >
+                              <a
+                                style={{ fontSize: "10px" }}
+                                href={parameter.pdf}
+                              >
+                                Download Pdf
+                              </a>
+                            </Button>
+                          )}
+                        </form>
+                      </Foot>
+                    </Content>
+                  </Main>
+                </div>
+              );
+            })}
       </Wrapper>
       <LearnContainer />
       <Footer />

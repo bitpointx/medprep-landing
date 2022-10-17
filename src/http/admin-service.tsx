@@ -40,4 +40,15 @@ export const adminService = {
       return Promise.reject(error);
     }
   },
+  getResultPdf: async (resultId: string) => {
+    try {
+      const response = await api.post(`/results/pdf/${resultId}`);
+
+      if (response) {
+        return Promise.resolve(response);
+      }
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
 };

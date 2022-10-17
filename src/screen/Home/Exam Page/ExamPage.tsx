@@ -33,7 +33,8 @@ import ExamEnded from "../../../components/notice/ExamEnded";
 import { NotStarted } from "@mui/icons-material";
 import ExamNotStarted from "../../../components/notice/ExamNotStarted";
 import { ToastContainer, toast } from "react-toastify";
-import {Link} from 'react-scroll';
+import { Link } from "react-scroll";
+import { adminService } from "../../../http/admin-service";
 
 interface responseProps {
   data: any;
@@ -173,6 +174,7 @@ const ExamPage = () => {
     const token = searchParams.get("token");
 
     if (resultId) {
+      // await adminService.submitExam(resultId);
       await axios.patch(
         `${process.env.REACT_APP_API_URL!}/web/result/${resultId}`,
         {
@@ -186,9 +188,12 @@ const ExamPage = () => {
       );
       setnotifyOpen(true);
       setsubmitModel(false);
+      toast("Your Exam has been submitted");
+      navigate('/submit')
+      // navigate(())
       // await adminService.submitExam(resultId);
     } else {
-      alert("No Result Id");
+      toast("No Result Found. Try Refreshing");
     }
   };
 
@@ -232,7 +237,7 @@ const ExamPage = () => {
             <GlobalStyle />
             <div className="TopBar">
               <p className="Left-TopBar-Para">
-                Time Left &nbsp;:&nbsp;
+                Time Left |{" "}
                 {responseTime.data && (
                   <Countdown
                     date={Date.now() + (responseTime.endDate - currentTime)}
@@ -275,7 +280,7 @@ const ExamPage = () => {
               <Grid container>
                 <Grid xs={9}>
                   <div className="Left-Container-width">
-                    <div className="Left-Container-Main"  >
+                    <div className="Left-Container-Main">
                       <div className="Left-Container-Header">
                         <div className="Left-Container-Mark">
                           <p>Mark</p>
@@ -306,7 +311,7 @@ const ExamPage = () => {
                       return (
                         <>
                           <div className="ExamPageCard">
-                            <div >
+                            <div>
                               <NormalQuestion item={abc} index={index} />
                             </div>
                           </div>
@@ -334,8 +339,8 @@ const ExamPage = () => {
                 </Grid>
                 <Grid xs={3}>
                   <Hidden lgDown>
-                  <div className="RefWrapper">
-                      <div className="RefMain" >
+                    <div className="RefWrapper">
+                      <div className="RefMain">
                         <div>
                           <p className="RefPara">Reference</p>
                         </div>
@@ -344,7 +349,6 @@ const ExamPage = () => {
                             return (
                               <>
                                 <Grid item xl={2} sx={{ padding: "8px 0" }}>
-                                
                                   <Paper
                                     sx={{
                                       width: "42px",
@@ -366,7 +370,6 @@ const ExamPage = () => {
                                   >
                                     <p className="Number">{index + 1}</p>
                                   </Paper>
-                                
                                 </Grid>
                               </>
                             );
@@ -461,12 +464,12 @@ const ExamPage = () => {
                         </Grid>
                         {/* <form> */}
                         <div className="Button-Wrapper">
-                        <button
-                          className="Submit"
-                          onClick={() => setsubmitModel(true)}
-                        >
-                          Submit
-                        </button>
+                          <button
+                            className="Submit"
+                            onClick={() => setsubmitModel(true)}
+                          >
+                            Submit
+                          </button>
                         </div>
                         {/* </form> */}
                       </div>
@@ -493,9 +496,9 @@ const ExamPage = () => {
                   </Button>
                   <Button
                     variant="contained"
-                    onClick={() => {
-                      endExam();
-                      toast("Your Exam has been submitted");
+                    onClick={async () => {
+                      await endExam();
+
                       // navigate("/exams")
                     }}
                   >
